@@ -5,8 +5,15 @@ import { GoogleMap, InfoWindow, LoadScript, Marker } from '@react-google-maps/ap
 import Header from '@/components/header'
 import { Search } from 'lucide-react'
 
+interface location{
+  id: number;
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+}
 // Sample location data
-const locations = [
+const locations:location[] = [
   { id: 1, name: 'Townsville Office', address: 'Suite 3 45/49 Bundock St Belgian Gardens QLD, AUS', lat: -19.2456556, lng: 146.7936314 },
   { id: 2, name: 'Brisbane Office', address: 'Unit 3 26 Argyle Street Albion QLD 4010', lat: -27.4413289, lng: 153.0425 },
   { id: 3, name: 'Gold Coast Office', address: '1/44 THomas Drive, Surfers Paradise', lat: -28.02, lng: 153.4 },
@@ -17,7 +24,7 @@ const locations = [
 ]
 
 // Table component
-const LocationTable = ({ filteredLocations }) => (
+const LocationTable = ({ filteredLocations }: { filteredLocations: location[] }) => (
   <div className="overflow-x-auto bg-white rounded-lg shadow">
     <table className="w-full">
       <thead className="bg-gray-50">
@@ -39,7 +46,7 @@ const LocationTable = ({ filteredLocations }) => (
 )
 
 // Map component
-const LocationMap = ({ filteredLocations }) => {
+const LocationMap = ({ filteredLocations }: { filteredLocations: location[] }) => {
   const mapContainerStyle = {
     width: '100%',
     height: '500px'
@@ -50,7 +57,7 @@ const LocationMap = ({ filteredLocations }) => {
     lng: 145
   }
 
-  const [selectedLocation, setSelectedLocation] = useState(null)
+  const [selectedLocation, setSelectedLocation] = useState<location|null>()
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyAxbtLagZ2yetvjrygh8qyL3rrtxYAHSlE">
@@ -94,7 +101,7 @@ export default function Locations() {
   )
 
   const handleSearch = useCallback(() => {
-    setSearchTerm(searchInputRef.current.value)
+    setSearchTerm(searchInputRef.current!)
   }, [])
 
   return (
