@@ -8,7 +8,7 @@ const staffMembers = [
   { id: 1, name: 'Gregg' },
   { id: 2, name: 'Leonie' },
   { id: 3, name: 'Jaques' },
-]
+] 
 
 const taskData = {
   1: [
