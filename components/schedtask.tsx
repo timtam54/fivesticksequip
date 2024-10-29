@@ -10,7 +10,7 @@ const users = [
   { id: 3, name: 'Jaques' },
 ]
 
-const tasks = {
+const tasks: { [key: number]: { date: string; title: string }[] } = {
   1: [
     { date: '2024-10-05', title: 'Project meeting' },
     { date: '2024-10-05', title: 'Calibrating devices' },
