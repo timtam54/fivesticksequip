@@ -5,7 +5,7 @@ import { Plus, Minus, ShoppingCart, Barcode } from "lucide-react"
 import Header from "@/components/header"
 
 // Simulated product database
-const products = {
+const products: { [key: string]: { name: string; weight: number } } = {
   "123456": { name: "pump31", weight: 0.50 },
   "234567": { name: "pump43", weight: 0.30 },
   "345678": { name: "pump53", weight: 0.60 },
@@ -14,7 +14,7 @@ const products = {
 }
 
 type CartItem = {
-  id: string
+  id: number
   name: string
   weight: number
   quantity: number
@@ -24,7 +24,7 @@ export default function Component() {
   const [cart, setCart] = useState<CartItem[]>([{id:1,name:'pump89',weight:0.34,quantity:1},{id:2,name:'pump12',weight:0.44,quantity:1}])
   const [barcodeInput, setBarcodeInput] = useState("")
 
-  const addToCart = (barcode: string) => {
+  const addToCart = (barcode: number) => {
     const product = products[barcode]
     if (product) {
       setCart(currentCart => {
@@ -41,7 +41,7 @@ export default function Component() {
     setBarcodeInput("")
   }
 
-  const removeFromCart = (id: string) => {
+  const removeFromCart = (id: number) => {
     setCart(currentCart =>
       currentCart.map(item =>
         item.id === id
@@ -71,13 +71,13 @@ export default function Component() {
             onChange={(e) => setBarcodeInput(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
-                addToCart(barcodeInput)
+                addToCart(parseFloat( barcodeInput))
               }
             }}
             className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
-            onClick={() => addToCart(barcodeInput)}
+            onClick={() => addToCart(parseFloat( barcodeInput))}
             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             <Barcode className="w-4 h-4 inline-block mr-2" />
