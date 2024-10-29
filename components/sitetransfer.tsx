@@ -6,9 +6,9 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@mui/material'
 // Replace with your actual Google Maps API key
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAxbtLagZ2yetvjrygh8qyL3rrtxYAHSlE'
-
+ interface loc{ id: number; name: string | null; address: string | null; lat: number; lng: number }
 // Sample locations
-const locations = [
+const locations:loc[] = [
     { id: 1, name: 'Townsville Office', address: 'Suite 3 45/49 Bundock St Belgian Gardens QLD, AUS', lat: -19.2456556, lng: 146.7936314 },
     { id: 2, name: 'Brisbane Office', address: 'Unit 3 26 Argyle Street Albion QLD 4010', lat: -27.4413289, lng: 153.0425 },
     { id: 3, name: 'Gold Coast Office', address: '1/44 THomas Drive, Surfers Paradise', lat: -28.02, lng: 153.4 },
@@ -34,13 +34,12 @@ interface prop
 }
 export default function SiteTransfer({closeModal}:prop) {
   const [isOpen, setIsOpen] = useState(true)
-  const [selectedLocation, setSelectedLocation] = useState({ id: 0, name: null, address: null, lat: -19.2456556, lng: 146.7936314 },
-  )
+  const [selectedLocation, setSelectedLocation] = useState<loc|null>(null)//{ id: 0, name: null, address: null, lat: -19.2456556, lng: 146.7936314 }
 
   //const openModal = () => setIsOpen(true)
   //const closeModal = () => setIsOpen(false)
 
-  const handleLocationSelect = (location) => {
+  const handleLocationSelect = (location: loc) => {
     setSelectedLocation(location)
     //closeModal()
   }
