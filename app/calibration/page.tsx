@@ -8,9 +8,12 @@ const staffMembers = [
   { id: 1, name: 'Gregg' },
   { id: 2, name: 'Leonie' },
   { id: 3, name: 'Jaques' },
-] 
-
-const taskData = {
+]
+interface task{
+  date: string;
+  description: string;
+}
+const taskData: { [key: number]: { date: string; description: string }[] } = {
   1: [
     { date: '2024-10-05', description: 'Project meeting' },
     { date: '2024-10-05', description: 'Calibrating devices' },
@@ -37,21 +40,22 @@ const taskData = {
 export default function StaffCalendar() {
   const [selectedStaff, setSelectedStaff] = useState(staffMembers[0].id)
   const [currentDate, setCurrentDate] = useState(new Date(2024, 9, 1)) // October 2024
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState<task[]>([])
 
   useEffect(() => {
-    setTasks(taskData[selectedStaff] || [])
+    const td = taskData[selectedStaff];
+    setTasks(td)
   }, [selectedStaff])
 
   const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
   const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay()
 
-  const getDayColor = (day) => {
+  const getDayColor = (day:any) => {
     const dateString = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
     return tasks.some(task => task.date === dateString) ? 'bg-blue-200' : 'bg-white'
   }
 
-  const getTaskDescription = (day) => {
+  const getTaskDescription = (day:any) => {
     const dateString = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
     const task = tasks.find(task => task.date === dateString)
     return task ? task.description : ''
